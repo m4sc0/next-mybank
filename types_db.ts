@@ -12,27 +12,27 @@ export interface Database {
       account: {
         Row: {
           created_at: string
-          current_amount: number
-          description: string
+          current_amount: number | null
+          description: string | null
           id: number
-          updated_at: string
-          user_id: number | null
+          updated_at: string | null
+          user_id: string | null
         }
         Insert: {
           created_at?: string
-          current_amount?: number
-          description?: string
+          current_amount?: number | null
+          description?: string | null
           id?: number
-          updated_at?: string
-          user_id?: number | null
+          updated_at?: string | null
+          user_id?: string | null
         }
         Update: {
           created_at?: string
-          current_amount?: number
-          description?: string
+          current_amount?: number | null
+          description?: string | null
           id?: number
-          updated_at?: string
-          user_id?: number | null
+          updated_at?: string | null
+          user_id?: string | null
         }
         Relationships: [
           {
@@ -45,22 +45,22 @@ export interface Database {
       }
       transaction: {
         Row: {
-          account_id: number
-          amount: number
+          account_id: number | null
+          amount: number | null
           description: string | null
           id: number
           transferred_at: string
         }
         Insert: {
-          account_id: number
-          amount?: number
+          account_id?: number | null
+          amount?: number | null
           description?: string | null
           id?: number
           transferred_at?: string
         }
         Update: {
-          account_id?: number
-          amount?: number
+          account_id?: number | null
+          amount?: number | null
           description?: string | null
           id?: number
           transferred_at?: string
@@ -77,23 +77,24 @@ export interface Database {
       user: {
         Row: {
           created_at: string
-          id: number
-          password: string | null
-          username: string | null
+          id: string
         }
         Insert: {
           created_at?: string
-          id?: number
-          password?: string | null
-          username?: string | null
+          id: string
         }
         Update: {
           created_at?: string
-          id?: number
-          password?: string | null
-          username?: string | null
+          id?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "user_id_fkey"
+            columns: ["id"]
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
       }
     }
     Views: {

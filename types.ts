@@ -1,17 +1,17 @@
+import { UUID } from "crypto"
+
 export interface UserDetails {
     id: string,
-    name: string,
-    password: string,
-    created_at: Date
+    created_at: string
 }
 
 export interface Account {
-    id: string,
-    user_id: string,
+    id: number,
+    user_id: UUID,
     description: string,
-    current_value: number,
-    created_at: Date
-    updated_at: Date
+    current_amount: number,
+    created_at: string
+    updated_at: string
 }
 
 export interface Transaction {
@@ -19,5 +19,5 @@ export interface Transaction {
     account_id: string,
     description: string,
     amount: number,
-    transferred_at: Date
+    transferred_at: string
 }
