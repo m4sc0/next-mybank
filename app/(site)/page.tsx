@@ -3,19 +3,21 @@
 import getAccountsByUser from '@/actions/getAccountsByUser';
 import AccountList from '@/components/AccountList'
 import Header from '@/components/Header'
+import { useAccounts } from '@/hooks/useAccounts';
 import { useUser } from '@/hooks/useUser';
 import { Account } from '@/types';
 import { useEffect, useState } from 'react';
 
 export default function Home() {
 	const { user } = useUser();
-	const [accounts, setAccounts] = useState<Account[]>([]);
+	// const [accounts, setAccounts] = useState<Account[]>([]);
+	// const {accounts, fetchAccounts} = useAccounts(user?.id);
 
-	useEffect(() => {
-		if (user) {
-			getAccountsByUser(user).then(setAccounts);
-		}
-	}, [user])
+	// useEffect(() => {
+	// 	if (user) {
+	// 		getAccountsByUser(user).then(setAccounts);
+	// 	}
+	// }, [user])
 
 	return (
 		<div className='
@@ -28,7 +30,7 @@ export default function Home() {
 		'>
 			<Header />
 			{user ? (
-				<AccountList accounts={accounts} />
+				<AccountList id={user?.id} />
 			) : (
 					<h1 className='
 					mt-20

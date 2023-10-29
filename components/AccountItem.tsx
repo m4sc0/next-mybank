@@ -1,4 +1,7 @@
+import removeAccount from '@/actions/removeAccount';
+import { useUser } from '@/hooks/useUser';
 import { Account } from '@/types';
+import { useRouter } from 'next/navigation';
 import React from 'react'
 import { IoMdClose } from "react-icons/io";
 
@@ -8,6 +11,7 @@ interface AccountItemProps {
 
 const AccountItem: React.FC<AccountItemProps> = ({ data }) => {
     const updatedDate = new Date(data.updated_at);
+    const router = useRouter();
 
     const formattedDate = updatedDate.toLocaleDateString(undefined, {
         year: 'numeric',
@@ -23,6 +27,12 @@ const AccountItem: React.FC<AccountItemProps> = ({ data }) => {
     const amount = data.current_amount;
     const mainAmount = Math.floor(amount).toLocaleString();
     const decimalAmount = (amount % 1).toFixed(2).substring(2);
+
+    const removeAcc = async () => {
+        removeAccount(data)
+        router.refresh();
+        window.location.reload();
+    }
 
     return (
         <div className='
@@ -82,6 +92,8 @@ const AccountItem: React.FC<AccountItemProps> = ({ data }) => {
                 className="
                     text-neutral-400
                     hover:text-neutral-600
+                    dark:text-neutral-600
+                    hover:dark:text-neutral-400
                     transition
                     absolute
                     top-[25px]
@@ -95,6 +107,8 @@ const AccountItem: React.FC<AccountItemProps> = ({ data }) => {
                     rounded-full
                     focus:outline-none
                 "
+                // TODO: implement closing an account
+                onClick={removeAcc}
             >
                 <IoMdClose size={25} />
             </button>

@@ -5,3 +5,13 @@
 body.dark {
   background-color: #171717;
 }
+
+::selection {
+  background-color: #171717;
+  color: white;
+}
+
+.dark::selection {
+  background-color: #a9a9a9;
+  color: black;
+}

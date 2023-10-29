@@ -1,4 +1,3 @@
-// actions/getAccountsByUser.ts
 import { supabase } from '@/utils/supabaseClient';
 import { Account, UserDetails } from '@/types'; // Import your Account type
 
