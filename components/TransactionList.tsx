@@ -72,6 +72,7 @@ const TransactionList: React.FC<TransactionListProps> = ({
                 p-3
                 container
                 mx-auto
+                
             '
         >
             <div
