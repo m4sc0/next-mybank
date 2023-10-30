@@ -63,7 +63,7 @@ const TransactionList: React.FC<TransactionListProps> = ({
         } else {
             setSortedTransactions(transactions);
         }
-    }, [transactions, sortField, sortOrder]);
+    }, [transactions, sortField, sortOrder, sortTransactions]);
 
     return (
         <div

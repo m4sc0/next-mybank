@@ -23,6 +23,7 @@ const LoginButton = forwardRef<HTMLButtonElement, ButtonProps>(({
             {children}
         </Button>
     )
-})
+});
 
-export default LoginButton
+LoginButton.displayName = 'LoginButton';
+export default LoginButton;
