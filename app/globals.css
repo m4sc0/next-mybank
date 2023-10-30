@@ -7,11 +7,11 @@ body.dark {
 }
 
 ::selection {
-  background-color: #171717;
   color: white;
+  background-color: black;
 }
 
 .dark::selection {
-  background-color: #a9a9a9;
   color: black;
+  background-color: white;
 }

@@ -1,7 +1,8 @@
 "use client";
 
 import AuthModal from '@/components/AuthModal';
-import NewAccountModal from '@/components/NewAccountModal';
+import NewAccountModal from '@/components/NewAccountModal'; 
+import NewTransactionModal from '@/components/NewTransactionModal';
 import Modal from '@/components/Modal';
 import React, { useEffect, useState } from 'react'
 
@@ -20,6 +21,7 @@ const ModalProvider = () => {
         <>
             <AuthModal />
             <NewAccountModal />
+            <NewTransactionModal />
         </>
     )
 }

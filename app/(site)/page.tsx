@@ -1,11 +1,10 @@
 "use client";
 
-import getAccountsByUser from '@/actions/getAccountsByUser';
 import AccountList from '@/components/AccountList'
+import HR from '@/components/HR';
 import Header from '@/components/Header'
-import { useAccounts } from '@/hooks/useAccounts';
+import TransactionList from '@/components/TransactionList';
 import { useUser } from '@/hooks/useUser';
-import { Account } from '@/types';
 import { useEffect, useState } from 'react';
 
 export default function Home() {
@@ -19,6 +18,8 @@ export default function Home() {
 	// 	}
 	// }, [user])
 
+	const [curAccount, setCurAccount] = useState(0);
+
 	return (
 		<div className='
 			w-full
@@ -26,11 +27,15 @@ export default function Home() {
 			flex-col
 			items-center
 			justify-center
-			gap-6
+			gap-10
 		'>
 			<Header />
 			{user ? (
-				<AccountList id={user?.id} />
+				<>
+					<AccountList id={user?.id} setCurAccount={setCurAccount} />
+					<HR/>
+					<TransactionList account_id={curAccount} />
+				</>
 			) : (
 					<h1 className='
 					mt-20

@@ -19,5 +19,6 @@ export interface Transaction {
     account_id: string,
     description: string,
     amount: number,
-    transferred_at: string
+    transferred_at: string,
+    sign: string
 }

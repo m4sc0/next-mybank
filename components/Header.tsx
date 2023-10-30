@@ -28,6 +28,7 @@ const Header = () => {
         <div
             className='
                 w-3/4
+                max-w-[1450px]
                 bg-white
                 text-black
                 border-b-2

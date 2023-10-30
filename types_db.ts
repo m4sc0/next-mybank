@@ -50,6 +50,7 @@ export interface Database {
           description: string | null
           id: number
           transferred_at: string
+          sign: string
         }
         Insert: {
           account_id?: number | null
@@ -57,6 +58,7 @@ export interface Database {
           description?: string | null
           id?: number
           transferred_at?: string
+          sign?: string
         }
         Update: {
           account_id?: number | null
@@ -64,6 +66,7 @@ export interface Database {
           description?: string | null
           id?: number
           transferred_at?: string
+          sign?: string
         }
         Relationships: [
           {
