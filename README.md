@@ -12,14 +12,6 @@ Next-MyBank is a Next.js based project aimed to create a simple, yet effective o
 - **public**: Contains publicly accessible files.
 - **utils**: Utility functions and common helpers are found here.
 
-## Setup and Installation
-
-1. Clone the repository to your local machine using `git clone https://github.com/m4sc0/next-mybank`.
-2. Navigate to the project directory using `cd next-mybank`.
-3. Install the necessary dependencies using `npm install`.
-4. To start the development server, run `npm run dev`.
-5. Open your browser and visit `http://localhost:3000` to view the application.
-
 ## Usage
 
 Once the application is running, you can create an account, log in, and manage your bank accounts.
