@@ -103,43 +103,27 @@ const NewAccountModal = () => {
                     className="
                         flex
                         items-center
-                        justify-between
-                        gap-2
+                        justify-end
+                        border
+                        border-transparent
+                        rounded-md
+                        bg-neutral-300
+                        dark:bg-neutral-700
                     "
                 >
-                    <h1
-                        className="
-                            text-neutral-600
+                    <Input
+                        id="current_amount"
+                        disabled={isLoading}
+                        {...register('current_amount', { required: true })}
+                        placeholder="0"
+                        className="w-full text-right dark:text-neutral-400"
+                    />
+                    <span className="
+                            pr-3
+                            pl-1
+                            text-neutral-600 
                             dark:text-neutral-400
-                            whitespace-nowrap 
-                        "
-                    >Please enter the initial amount: </h1>
-                    <div
-                        className="
-                            flex
-                            items-center
-                            justify-end
-                            border
-                            border-transparent
-                            rounded-md
-                            bg-neutral-300
-                            dark:bg-neutral-700
-                        "
-                    >
-                        <Input
-                            id="current_amount"
-                            disabled={isLoading}
-                            {...register('current_amount', { required: true })}
-                            placeholder="0"
-                            className="w-full text-right dark:text-neutral-400"
-                        />
-                        <span className="
-                                pr-3
-                                pl-1
-                                text-neutral-600 
-                                dark:text-neutral-400
-                            ">$</span>
-                    </div>
+                        ">$</span>
                 </div>
                 <Button disabled={isLoading} type='submit'>
                     Create

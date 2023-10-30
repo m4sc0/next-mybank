@@ -7,9 +7,17 @@ import { IoMdClose } from "react-icons/io";
 
 interface AccountItemProps {
     data: Account;
+    removeAcc: (account: Account) => void;
+    setAccount: (account_id: number) => void;
+    isSelected: boolean;
 }
 
-const AccountItem: React.FC<AccountItemProps> = ({ data }) => {
+const AccountItem: React.FC<AccountItemProps> = ({
+    data,
+    removeAcc,
+    setAccount,
+    isSelected
+}) => {
     const updatedDate = new Date(data.updated_at);
     const router = useRouter();
 
@@ -28,28 +36,34 @@ const AccountItem: React.FC<AccountItemProps> = ({ data }) => {
     const mainAmount = Math.floor(amount).toLocaleString();
     const decimalAmount = (amount % 1).toFixed(2).substring(2);
 
-    const removeAcc = async () => {
-        removeAccount(data)
+    const handleCloseBtn = () => {
+        removeAcc(data);
         router.refresh();
-        window.location.reload();
     }
 
     return (
-        <div className='
+        <div className={`
             relative
-            bg-neutral-300
-            dark:bg-neutral-800
             p-6
             rounded-md
             flex
             flex-col
             gap-8
-        '>
+            border ${isSelected ? 'border-neutral-900 dark:border-neutral-100' : 'border-transparent'}
+            transition-all duration-300 ease-in-out
+            ${isSelected ? 'bg-violet-500' : 'bg-neutral-300 dark:bg-neutral-800'}
+            shadow-md
+        `}
+            onClick={() => {
+                setAccount(data.id);
+            }}
+        >
             <h2
-                className='
-                    text-neutral-500
+                className={`
+                    transition
+                    ${isSelected ? 'dark:text-neutral-300 text-neutral-700 font-semibold' : 'text-neutral-500'}
                     text-xl
-                '
+                `}
             >
                 {data.description}
             </h2>
@@ -61,11 +75,11 @@ const AccountItem: React.FC<AccountItemProps> = ({ data }) => {
                 '
             >
                 <p
-                    className='
+                    className={`
                         text-sm
-                        text-neutral-400
-                        dark:text-neutral-600
-                    '
+                        transition
+                        ${isSelected ? 'text-neutral-700 dark:text-neutral-300 font-semibold' : 'text-neutral-500'}
+                    `}
                 >Last update: <br/> {formattedDate}</p>
                 <div className="flex items-end">
                     <h1 className='
@@ -75,7 +89,7 @@ const AccountItem: React.FC<AccountItemProps> = ({ data }) => {
                             dark:text-white
                         '
                     >
-                        ${mainAmount}
+                        € {mainAmount}
                     </h1>
                     <span className='
                             text-xl
@@ -84,12 +98,12 @@ const AccountItem: React.FC<AccountItemProps> = ({ data }) => {
                             dark:text-white
                         '
                     >
-                        .{decimalAmount}
+                        {decimalAmount}
                     </span>
                 </div>
             </div>
             <button
-                className="
+                className={`
                     text-neutral-400
                     hover:text-neutral-600
                     dark:text-neutral-600
@@ -106,14 +120,17 @@ const AccountItem: React.FC<AccountItemProps> = ({ data }) => {
                     justify-center
                     rounded-full
                     focus:outline-none
-                "
+                    ${isSelected ? 'dark:text-neutral-100' : ''}
+                    
+                `}
                 // TODO: implement closing an account
-                onClick={removeAcc}
+                onClick={handleCloseBtn}
             >
                 <IoMdClose size={25} />
             </button>
         </div>
     )
+    
 }
 
 export default AccountItem;
