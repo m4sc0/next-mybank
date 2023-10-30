@@ -2,7 +2,7 @@
 
 Next-MyBank is a Next.js based project aimed to create a simple, yet effective online banking application. This repository contains the code for the Next-MyBank web application.
 
-## (Online demo)[https://next-mybank.vercel.app/]
+## [Online demo](https://next-mybank.vercel.app/)
 
 ## Project Structure
 
