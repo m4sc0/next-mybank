@@ -50,6 +50,20 @@ const NewAccountModal = () => {
         try {
             setIsLoading(true);
 
+            if (!values.description) {
+                // TODO: display error toast or message
+                console.error("Description is required");
+                setIsLoading(false);
+                return;
+            }
+    
+            if (values.current_amount <= 0) {
+                // TODO: display error toast or message
+                console.error("Current amount must be greater than 0");
+                setIsLoading(false);
+                return;
+            }
+
             const {
                 data: accountData,
                 error: accountError
@@ -72,8 +86,6 @@ const NewAccountModal = () => {
             // TODO: toast success
             reset();
             newAccountModal.onClose();
-            router.refresh();
-            window.location.reload();
         } catch (error) {
             // TODO: toast error
             console.error(error)

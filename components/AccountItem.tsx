@@ -98,7 +98,7 @@ const AccountItem: React.FC<AccountItemProps> = ({
                             dark:text-white
                         '
                     >
-                        {decimalAmount}
+                        .{decimalAmount}
                     </span>
                 </div>
             </div>

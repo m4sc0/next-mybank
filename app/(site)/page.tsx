@@ -33,7 +33,7 @@ export default function Home() {
 			{user ? (
 				<>
 					<AccountList id={user?.id} setCurAccount={setCurAccount} />
-					<HR/>
+					<HR className='my-6'/>
 					<TransactionList account_id={curAccount} />
 				</>
 			) : (

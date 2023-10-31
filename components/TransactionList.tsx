@@ -8,6 +8,7 @@ import HR from './HR';
 import { Transaction } from '@/types';
 import useNewTransactionModal from '@/hooks/useNewTransactionModal';
 import { BsPlus } from 'react-icons/bs';
+import { TbReload } from 'react-icons/tb';
 
 interface TransactionListProps {
     account_id: number
@@ -48,6 +49,9 @@ const TransactionList: React.FC<TransactionListProps> = ({
     };
 
     const refreshTransactions = async () => {
+        if (account_id === 0) {
+            setSortedTransactions([]);
+        }
         fetchTransactions();
         setSortedTransactions(transactions);
     }
@@ -72,7 +76,7 @@ const TransactionList: React.FC<TransactionListProps> = ({
                 p-3
                 container
                 mx-auto
-                
+                    
             '
         >
             <div
@@ -83,16 +87,40 @@ const TransactionList: React.FC<TransactionListProps> = ({
                     mb-4
                 '
             >
-                <h1
-                    className='
-                        text-4xl
-                        font-semibold
-                        text-neutral-400
-                        dark:text-neutral-600
-                    '
-                >
-                    Recent transactions
-                </h1>
+                <div className='
+                    flex
+                    items-center
+                    gap-4
+                '>
+                    <h1
+                        className='
+                            text-4xl
+                            font-semibold
+                            text-neutral-400
+                            dark:text-neutral-600
+                        '
+                    >
+                        Recent transactions
+                    </h1>
+                    <button
+                        className='
+                            p-3
+                            transition
+                            bg-neutral-300
+                            dark:bg-neutral-800
+                            dark:text-neutral-500
+                            hover:bg-neutral-400
+                            hover:dark:text-white
+                            rounded-full
+                            flex
+                            items-center
+                            gap-2
+                        '
+                        onClick={refreshTransactions}
+                    >
+                        <TbReload size={15} />
+                    </button>
+                </div>
                 <button
                     className='
                         p-3
@@ -115,7 +143,7 @@ const TransactionList: React.FC<TransactionListProps> = ({
                     />
                 </button>
             </div>
-
+    
             <div className='flex flex-col w-full'>
                 <div className='flex mb-2 justify-between w-full'>
                     <div className="p-2 dark:text-neutral-300 font-bold w-2/3 items-center text-left">
@@ -134,7 +162,7 @@ const TransactionList: React.FC<TransactionListProps> = ({
 
                 {sortedTransactions.map((transaction) => (
                     <React.Fragment key={transaction.id}>
-                        <HR full className="bg-neutral-900" />
+                        <HR full className="bg-neutral-400" />
                         <TransactionItem
                             data={transaction}
                         />

@@ -5,6 +5,7 @@ import Modal from "./Modal";
 import Input from "./Input";
 import Button from "./Button";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
+import { useRouter } from "next/navigation";
 
 interface IFormInput {
     description: string;
@@ -16,6 +17,7 @@ const NewTransactionModal = () => {
     const newTransactionModal = useNewTransactionModal();
     const { register, handleSubmit, reset } = useForm<IFormInput>();
     const supabaseClient = useSupabaseClient();
+    const router = useRouter();
 
     const onClose = () => {
         reset();
@@ -27,7 +29,7 @@ const NewTransactionModal = () => {
         try {
             const accountId = localStorage.getItem('accountId');
 
-            console.log(accountId);
+            // console.log(accountId);
 
             if (!accountId) {
                 console.error('No account chosen');
@@ -44,7 +46,7 @@ const NewTransactionModal = () => {
 
             if (!accountData) throw new Error('Account not found');
 
-            const newAmount = data.sign === '+' ? accountData.current_amount + data.amount : accountData.current_amount - data.amount;
+            const newAmount = data.sign === '+' ? accountData.current_amount + Number(data.amount) : accountData.current_amount - Number(data.amount);
 
             const { error: updateError } = await supabaseClient
                 .from('account')
@@ -68,6 +70,7 @@ const NewTransactionModal = () => {
 
             console.log("Transaction added successfully!");
             onClose();
+            router.refresh();
         } catch (error) {
             console.error("Failed to add transaction", error);
         } finally {
