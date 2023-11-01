@@ -6,12 +6,13 @@ import HR from "@/components/HR";
 import Header from "@/components/Header";
 import Navbar from "@/components/Navbar";
 import { useUser } from "@/hooks/useUser";
+import { useTheme } from "@/providers/ThemeContext";
 import { Account } from "@/types";
 import Head from "next/head";
 import { useEffect, useState } from "react";
 
 export default function StatsPage() {
-    const theme = window.localStorage.getItem('theme');
+    const theme = useTheme();
 
     const { user } = useUser();
 
