@@ -1,22 +1,57 @@
-import React, { useState } from 'react'
-import { RiHome3Fill, RiHome3Line } from "react-icons/ri";
-import { IoStatsChartOutline, IoStatsChartSharp } from "react-icons/io5";
+import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation';
-import Link from 'next/link';
 
-const Navbar = () => {
+interface NavbarProps {
+	isOpen?: boolean;
+	className?: string;
+}
+
+const Navbar: React.FC<NavbarProps> = ({
+	isOpen,
+	className
+}) => {
+	const thirdOccurence = (input: string, char: string) => {
+		let count = 0;
+
+		for (let i = 0; i < input.length; i++) {
+			if (input[i] === char) {
+				count++;
+
+				if (count === 3) {
+					return i;
+				}
+			}
+		}
+
+		return -1;
+	}
+
 	const router = useRouter();
+	const [currentPath, setCurrentPath] = useState('');
 
-	const items = [
+	const [items, setItems] = useState([
 		{
 			name: 'Home',
-			href: '/'
+			href: '/',
+			current: false,
 		},
 		{
 			name: 'Statistics',
-			href: '/stats'
-		}
-	]
+			href: '/stats',
+			current: false,
+		},
+	]);
+
+	useEffect(() => {
+		setCurrentPath(window.location.href.substring(thirdOccurence(window.location.href, '/')));
+
+		setItems((prevItems) => (
+			prevItems.map((item) => ({
+				...item,
+				current: item.href === currentPath,
+			}))
+		));
+	}, [currentPath]);
 
 	const itemStyles = () => `
 		text-neutral-900
@@ -30,29 +65,46 @@ const Navbar = () => {
 		after:h-[3px]
 		after:bg-white
 		after:w-full
-		after:scale-x-0
 		after:hover:scale-x-100
 		after:transition
 		after:duration-300
 		after:origin-center
-	`
+		${className}
+		${isOpen ? 'w-full text-center' : ''}
+	`;
+
+	const pageChange = (href: string) => {
+		router.push(href);
+		router.refresh();
+	}
 
 	return (
 		<div
-			className='
-				w-1/6
+			className={`
 				flex
+				flex-row
+				gap-10
 				items-center
 				justify-around
-			'
+				${isOpen ? 'flex' : 'hidden'} md:flex
+				${className}
+			`}
 		>
-			{items.map((item) => {
-				return (
-					<Link href={item.href} key={item.name} className={itemStyles()}>
-						{item.name}
-					</Link>
-				);
-			})}
+			{items.map((item) => (
+				<div 
+					onClick={() => { pageChange(item.href) }} 
+					key={item.name} 
+					className={`
+						${itemStyles()}
+						cursor-pointer 
+						${item.current ? 'after:scale-x-100' : 'after:scale-x-0'}
+						block md:inline-block
+						mb-2 md:mb-0
+					`}
+				>
+					{item.name}
+				</div>
+			))}
 		</div>
 	)
 }

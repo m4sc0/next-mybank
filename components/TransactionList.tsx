@@ -73,19 +73,23 @@ const TransactionList: React.FC<TransactionListProps> = ({
     return (
         <div
             className='
-                w-3/4
+                w-full
                 p-3
                 container
                 mx-auto
-                    
             '
         >
             <div
                 className='
+                    w-full
                     flex
+                    flex-col
+                    md:flex-row
                     items-center
-                    justify-between
+                    justify-center
+                    md:justify-between
                     mb-4
+                    gap-4
                 '
             >
                 <div className='

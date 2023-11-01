@@ -58,13 +58,15 @@ const AccountList: React.FC<AccountListProps> = ({
     if (accounts.length === 0) {
         return (
             <div className='
-                w-3/4
-                p-3
                 container
+                w-full
+                p-3
                 flex
+                flex-col
                 items-center
                 justify-between
                 mb-4
+                text-center
             '>
                 <div className='
                     flex
@@ -73,7 +75,7 @@ const AccountList: React.FC<AccountListProps> = ({
                 '>
                     <h1
                         className='
-                        text-4xl
+                        text-3xl
                         font-semibold
                         text-neutral-400
                         dark:text-neutral-600
@@ -95,7 +97,7 @@ const AccountList: React.FC<AccountListProps> = ({
                             items-center
                             gap-2
                         '
-                        onClick={fetchAccounts}  // Fetch accounts again when clicked
+                        onClick={fetchAccounts}
                     >
                         <TbReload size={15} />
                     </button>
@@ -129,18 +131,23 @@ const AccountList: React.FC<AccountListProps> = ({
     return (
         <div
             className={`
-                w-3/4
+                w-full
                 p-3
-                container 
+                container
                 mx-auto
                 ${className}
             `}
         >
             <div className='
+                w-full
                 flex
+                flex-col
+                md:flex-row
                 items-center
-                justify-between
+                justify-center
+                md:justify-between
                 mb-4
+                gap-4
             '>
                 <div className='
                     flex
@@ -149,7 +156,7 @@ const AccountList: React.FC<AccountListProps> = ({
                 '>
                     <h1
                         className='
-                        text-4xl
+                        text-3xl
                         font-semibold
                         text-neutral-400
                         dark:text-neutral-600
@@ -171,7 +178,7 @@ const AccountList: React.FC<AccountListProps> = ({
                             items-center
                             gap-2
                         '
-                        onClick={fetchAccounts}  // Fetch accounts again when clicked
+                        onClick={fetchAccounts}
                     >
                         <TbReload size={15} />
                     </button>
@@ -189,6 +196,7 @@ const AccountList: React.FC<AccountListProps> = ({
                         flex
                         items-center
                         gap-2
+                        whitespace-nowrap
                     '
                     onClick={onClick}
                 >
@@ -201,7 +209,7 @@ const AccountList: React.FC<AccountListProps> = ({
             {isLoading ? (
                 <Spinner />
             ) : (
-                <div className='grid grid-cols-1 sm:grid-cols-2 gap-4'>
+                <div className='w-full mx-auto grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-4'>
                     {accounts.map((account) => (
                         <AccountItem
                             key={account.id}
@@ -215,7 +223,6 @@ const AccountList: React.FC<AccountListProps> = ({
             )}
         </div>
     );
-
 }
 
 export default AccountList

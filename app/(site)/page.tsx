@@ -40,6 +40,8 @@ export default function Home() {
 	return (
 		<div className={`
 			w-full
+			container
+			mx-auto
 			flex
 			flex-col
 			items-center

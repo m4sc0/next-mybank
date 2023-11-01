@@ -1,18 +1,18 @@
-"use client";
-
+import React, { useState } from 'react';
 import useAuthModal from '@/hooks/useAuthModal';
 import { useTheme } from '@/providers/ThemeContext';
 import Link from 'next/link'
-import React from 'react'
-import { BiSolidMoon, BiSolidSun } from "react-icons/bi";
+import { BiSolidMoon, BiSolidSun, BiMenu, BiX } from "react-icons/bi";
 import LoginButton from './LoginButton';
 import { useRouter } from 'next/navigation';
 import { useSupabaseClient } from '@supabase/auth-helpers-react';
 import { useUser } from '@/hooks/useUser';
 import Button from './Button';
 import Navbar from './Navbar';
+import HR from './HR';
 
 const Header = () => {
+    const [menuOpen, setMenuOpen] = useState(false);
     const authModal = useAuthModal();
     const { theme, toggleTheme } = useTheme();
     const router = useRouter();
@@ -28,8 +28,8 @@ const Header = () => {
     return (
         <div
             className='
-                w-3/4
-                max-w-[1450px]
+                container
+                w-full
                 bg-white
                 text-black
                 border-b-2
@@ -40,35 +40,44 @@ const Header = () => {
                 dark:border-b-neutral-100/20
                 p-4
                 flex
+                flex-col md:flex-row
                 items-center
-                justify-between
+                md:justify-between
+                gap-2
             '
         >
-            <button className='text-2xl font-bold' onClick={() => router.push('/')}>MyBank</button>
-            <Navbar />
-            <div
-                className='flex gap-2 items-center'
-            >
-                {user ? (
-                    <>
-                        <Button
-                            onClick={handleLogout}
-                            className='
-                                bg-transparent
+            <div className='w-full md:w-fit flex justify-between md:justify-start'>
+                <button className='text-2xl font-bold' onClick={() => router.push('/')}>MyBank</button>
+                <button className='md:hidden' onClick={() => setMenuOpen(!menuOpen)}>
+                    {menuOpen ? <BiX size={25} /> : <BiMenu size={25} />}
+                </button>
+            </div>
+            <div className={`block ${menuOpen ? 'block' : 'hidden'} md:flex flex-row items-center md:justify-between`}>
+            </div>
+            <Navbar isOpen={menuOpen} className={`block ${menuOpen ? 'block' : 'hidden'} md:ml-auto`} />
+            <HR className={`block ${menuOpen ? 'block' : 'hidden'} md:hidden`} />
+            {user ? (
+                <div className={`block ${menuOpen ? 'block' : 'hidden'} md:block w-full md:w-fit md:ml-auto`}>
+                    <Button
+                        onClick={handleLogout}
+                        className='
+                                w-full
+                                md:w-fit
+                                md:ml-auto
+                                bg-red-500
                                 text-black
-                                dark:bg-transparent
+                                dark:bg-red-500
                                 dark:text-white
-                                hover:bg-transparent
-                                hover:underline
-                                hover:dark:bg-transparent
+                                hover:bg-red-600
+                                hover:dark:bg-red-600
                             '
-                        >
-                            Logout
-                        </Button>
-                    </>
-                ) : (
-                    <>
-                        <LoginButton onClick={authModal.onOpen} className='
+                    >
+                        Logout
+                    </Button>
+                </div>
+            ) : (
+                <div className={`flex ${menuOpen ? 'block' : 'hidden'} md:flex md:w-fit md:ml-auto`}>
+                    <LoginButton onClick={authModal.onOpen} className='
                             bg-transparent
                             text-black
                             dark:bg-transparent
@@ -76,31 +85,31 @@ const Header = () => {
                             hover:bg-transparent
                             hover:underline
                             hover:dark:bg-transparent
+                            md:mr-2
                         '
-                        >
-                            Sign up
-                        </LoginButton>
-                        <LoginButton
-                            onClick={authModal.onOpen}
-                        >Login</LoginButton>
-                    </>
-                )}
-                <button onClick={toggleTheme} className='pl-6'>
-                    {theme === 'dark' ?
-                        // Add light theme button
-                        (<BiSolidSun
-                            size={25}
-                        />)
-                        :
-                        // Add dark theme button
-                        (<BiSolidMoon
-                            size={25}
-                        />)
-                    }
-                </button>
-            </div>
+                    >
+                        Sign up
+                    </LoginButton>
+                    <LoginButton
+                        onClick={authModal.onOpen}
+                    >Login</LoginButton>
+                </div>
+            )}
+            <button onClick={toggleTheme} className={`block ${menuOpen ? 'block' : 'hidden'} w-full md:w-fit flex md:flex justify-center bg-neutral-300 dark:bg-neutral-700 md:bg-transparent md:dark:bg-transparent py-2 rounded-md mt-2 md:m-0 md:ml-4`}>
+                {theme === 'dark' ?
+                    // Add light theme button
+                    (<BiSolidSun
+                        size={25}
+                    />)
+                    :
+                    // Add dark theme button
+                    (<BiSolidMoon
+                        size={25}
+                    />)
+                }
+            </button>
         </div>
     )
 }
 
-export default Header
+export default Header;

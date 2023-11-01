@@ -63,8 +63,6 @@ export default function StatsPage() {
                     <h1>Please login to use the analytical feature</h1>
                 )
             )}
-
-            <Navbar />
         </div>
     )
 }
