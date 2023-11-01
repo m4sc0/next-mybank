@@ -10,6 +10,7 @@ import { useRouter } from 'next/navigation';
 import { useSupabaseClient } from '@supabase/auth-helpers-react';
 import { useUser } from '@/hooks/useUser';
 import Button from './Button';
+import Navbar from './Navbar';
 
 const Header = () => {
     const authModal = useAuthModal();
@@ -44,6 +45,7 @@ const Header = () => {
             '
         >
             <button className='text-2xl font-bold' onClick={() => router.push('/')}>MyBank</button>
+            <Navbar />
             <div
                 className='flex gap-2 items-center'
             >
@@ -78,9 +80,9 @@ const Header = () => {
                         >
                             Sign up
                         </LoginButton>
-                            <LoginButton
-                                onClick={authModal.onOpen}
-                            >Login</LoginButton>
+                        <LoginButton
+                            onClick={authModal.onOpen}
+                        >Login</LoginButton>
                     </>
                 )}
                 <button onClick={toggleTheme} className='pl-6'>

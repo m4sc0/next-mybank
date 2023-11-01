@@ -91,6 +91,7 @@ const NewTransactionModal = () => {
                     {...register("description", { required: true })}
                     placeholder="Description"
                     disabled={isLoading}
+                    className="text-neutral-800 dark:text-neutral-100"
                 />
                 <div className="flex items-center gap-2">
                     <div className="flex-1
@@ -141,7 +142,7 @@ const NewTransactionModal = () => {
                     </select>
 
                 </div>
-                <Button type="submit" disabled={isLoading}>
+                <Button type="submit" disabled={isLoading} className="bg-violet-600 hover:bg-violet-400 dark:bg-violet-600 hover:dark:bg-violet-400 dark:text-neutral-100">
                     Add Transaction
                 </Button>
             </form>

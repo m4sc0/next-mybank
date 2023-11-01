@@ -9,15 +9,18 @@ import useNewAccountModal from '@/hooks/useNewAccountModal';
 import { useAccounts } from '@/hooks/useAccounts';
 import removeAccount from '@/actions/removeAccount';
 import { useRouter } from 'next/navigation';
+import Spinner from './Spinner';
 
 interface AccountListProps {
-    id: string | undefined;
+    id: string;
+    accounts: Account[];
     setCurAccount: (account_id: number) => void;
     className?: string;
 }
 
 const AccountList: React.FC<AccountListProps> = ({
     id,
+    accounts,
     setCurAccount,
     className
 }) => {
@@ -27,7 +30,7 @@ const AccountList: React.FC<AccountListProps> = ({
     const router = useRouter();
     const [selectedAccountId, setSelectedAccountId] = useState<number | null>(null);
 
-    let { accounts, fetchAccounts } = useAccounts(id);
+    let { fetchAccounts, isLoading } = useAccounts(id);
 
     const onClick = () => {
         if (!user) {
@@ -195,17 +198,21 @@ const AccountList: React.FC<AccountListProps> = ({
                     />
                 </button>
             </div>
-            <div className='grid grid-cols-1 sm:grid-cols-2 gap-4'>
-                {accounts.map((account) => (
-                    <AccountItem
-                        key={account.id}
-                        data={account}
-                        removeAcc={removeAcc}
-                        setAccount={handleSetAccount}
-                        isSelected={account.id === selectedAccountId}
-                    />
-                ))}
-            </div>
+            {isLoading ? (
+                <Spinner />
+            ) : (
+                <div className='grid grid-cols-1 sm:grid-cols-2 gap-4'>
+                    {accounts.map((account) => (
+                        <AccountItem
+                            key={account.id}
+                            data={account}
+                            removeAcc={removeAcc}
+                            setAccount={handleSetAccount}
+                            isSelected={account.id === selectedAccountId}
+                        />
+                    ))}
+                </div>
+            )}
         </div>
     );
 

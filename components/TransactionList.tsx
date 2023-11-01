@@ -9,6 +9,7 @@ import { Transaction } from '@/types';
 import useNewTransactionModal from '@/hooks/useNewTransactionModal';
 import { BsPlus } from 'react-icons/bs';
 import { TbReload } from 'react-icons/tb';
+import Spinner from './Spinner';
 
 interface TransactionListProps {
     account_id: number
@@ -143,32 +144,36 @@ const TransactionList: React.FC<TransactionListProps> = ({
                     />
                 </button>
             </div>
-    
-            <div className='flex flex-col w-full'>
-                <div className='flex mb-2 justify-between w-full'>
-                    <div className="p-2 dark:text-neutral-300 font-bold w-2/3 items-center text-left">
-                        Description
-                        <button className="px-2 items-center" onClick={() => handleSort('description')}>{getSortIcon('description')}</button>
-                    </div>
-                    <div className="p-2 dark:text-neutral-300 font-bold w-1/3 items-center text-right">
-                        Transferred at
-                        <button className="px-2 items-center" onClick={() => handleSort('transferred_at')}>{getSortIcon('transferred_at')}</button>
-                    </div>
-                    <div className="p-2 dark:text-neutral-300 font-bold w-1/3 items-center text-right">
-                        Amount
-                        <button className="px-2 items-center" onClick={() => handleSort('amount')}>{getSortIcon('amount')}</button>
-                    </div>
-                </div>
 
-                {sortedTransactions.map((transaction) => (
-                    <React.Fragment key={transaction.id}>
-                        <HR full className="bg-neutral-400" />
-                        <TransactionItem
-                            data={transaction}
-                        />
-                    </React.Fragment>
-                ))}
-            </div>
+            {isLoading ? (
+                <Spinner />
+            ) : (
+                <div className='flex flex-col w-full'>
+                    <div className='flex mb-2 justify-between w-full'>
+                        <div className="p-2 dark:text-neutral-300 font-bold w-2/3 items-center text-left">
+                            Description
+                            <button className="px-2 items-center" onClick={() => handleSort('description')}>{getSortIcon('description')}</button>
+                        </div>
+                        <div className="p-2 dark:text-neutral-300 font-bold w-1/3 items-center text-right">
+                            Transferred at
+                            <button className="px-2 items-center" onClick={() => handleSort('transferred_at')}>{getSortIcon('transferred_at')}</button>
+                        </div>
+                        <div className="p-2 dark:text-neutral-300 font-bold w-1/3 items-center text-right">
+                            Amount
+                            <button className="px-2 items-center" onClick={() => handleSort('amount')}>{getSortIcon('amount')}</button>
+                        </div>
+                    </div>
+
+                    {sortedTransactions.map((transaction) => (
+                        <React.Fragment key={transaction.id}>
+                            <HR full className="bg-neutral-400" />
+                            <TransactionItem
+                                data={transaction}
+                            />
+                        </React.Fragment>
+                    ))}
+                </div>
+            )}
         </div>
     )
 }
